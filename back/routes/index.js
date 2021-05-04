@@ -7,8 +7,8 @@ const Passenger = require("./passengers");
 router.use("/packages", Packages);
 router.use("/passengers", Passenger);
 
-router.get("/*", (req, res) => {
+/* router.get("/*", (req, res) => {
     res.sendFile(__dirname + "/public/" + "index.html");
-});
+}); */
 
 module.exports = router;

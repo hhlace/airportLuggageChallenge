@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.App {
+    text-align: center;
+}
+.App-title {
+    position: absolute;
+    top: 20px;
+}
+.App-header {
+    background-color: #4c5c68;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+}
+
+.App-link {
+    position: absolute;
+    bottom: 20px;
+    color: #61dafb;
+}
+button {
+    height: 60px;
+    margin: 24px 0;
+    border: solid 1px black;
+    border-radius: 10px;
+    font-family: "Roboto";
+    color: black;
+    font-size: 24px;
+}
+div.options {
+    width: 100%;
+}
+button.cargar-pasajero {
+    background-color: #b2b1cf;
+}
+button.vuelos {
+    background-color: #1985a1;
+}
+button.pasajeros {
+    background-color: #46494c;
+}
+@media (max-width: 680px) {
+    button,
+    form,
+    label,
+    input {
+        width: 100%;
+        padding: 0;
+    }
+}
+input {
+    height: 36px;
+    margin: 18px 0;
+    border-radius: 10px;
+    border: none;
+}
+input.submit {
+    background-color: #1985a1;
+}
+table {
+    position: absolute;
+    top: 100px;
+    background-color: #b2b1cf;
+    width: 95%;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+tr {
+    border: 1px solid black;
+}
+tr:nth-child(even) {
+    background-color: #e1f2fe;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

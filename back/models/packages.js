@@ -11,7 +11,8 @@ Pacakages.init(
             allowNull: false,
         },
         size: {
-            type: S.ARRAY(S.TEXT),
+            type: S.ENUM,
+            values: ["grande", "pequeño", "prenda"],
             allowNull: false,
         },
     },

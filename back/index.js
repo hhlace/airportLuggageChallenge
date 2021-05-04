@@ -20,6 +20,6 @@ app.use("/", routes);
 db.sync()
     .then(() => {
         console.log("DB synched");
-        app.listen(3000, () => console.log("listening on 3000"));
+        app.listen(3001, () => console.log("listening on 3001"));
     })
     .catch(console.log);

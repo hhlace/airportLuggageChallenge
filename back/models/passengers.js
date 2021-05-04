@@ -13,6 +13,9 @@ Passenger.init(
             type: S.STRING,
             allowNull: false,
         },
+        flights: {
+            type: S.ARRAY(S.STRING),
+        },
     },
     { sequelize: db, modelName: "passenger" }
 );
