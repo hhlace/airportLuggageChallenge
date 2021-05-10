@@ -11,7 +11,15 @@ router.post("/", (req, res) => {
             : res.send("El usuario ya existe");
     });
 });
-
+router.put("/:passengerId", (req, res) => {
+    Passenger.findByPk(req.params.passengerId)
+        .then((passenger) => {
+            passenger.flights = req.body.flight;
+            passenger.save();
+            return passenger;
+        })
+        .then((updatedPassenger) => res.status(202).send(updatedPassenger));
+});
 router.get("/search/:search", (req, res) => {
     Passenger.findAll({
         where: {

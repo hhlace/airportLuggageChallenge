@@ -3,7 +3,6 @@ import "../App.css";
 
 const PassengersData = ({
     name,
-    matches,
     lastName,
     handleBlurName,
     handleBlurLastName,
@@ -12,26 +11,6 @@ const PassengersData = ({
 }) => {
     return (
         <>
-            {matches.length > 0 ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {matches.map((passenger) => {
-                            return (
-                                <tr key={passenger.id}>
-                                    <td key={passenger.id}>{passenger.name}</td>
-                                    <td>{passenger.lastName}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            ) : null}
             <form onSubmit={addPassenger}>
                 <label>
                     <input
@@ -40,6 +19,7 @@ const PassengersData = ({
                         {...name}
                         placeholder="Nombre"
                         onBlur={handleBlurName}
+                        onKeyPress={handleBlurName}
                     />
                 </label>
                 <label>

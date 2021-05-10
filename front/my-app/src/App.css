@@ -72,11 +72,18 @@ table {
 }
 tr {
     border: 1px solid black;
+    cursor: pointer;
 }
 tr:nth-child(even) {
     background-color: #e1f2fe;
 }
-
+.size-checkbox {
+    display: flex;
+    flex-direction: row;
+}
+small {
+    color: red;
+}
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);

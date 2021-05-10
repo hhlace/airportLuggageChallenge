@@ -1,5 +1,6 @@
 import "./App.css";
 import Options from "./Options";
+import { Route, Redirect, Switch } from "react-router-dom";
 
 function App() {
     return (
