@@ -1,5 +1,5 @@
 import react from "react";
-import "../App.css";
+import "./App.css";
 
 const Matches = ({
     matches,
@@ -80,6 +80,29 @@ const Matches = ({
                                     >
                                         X
                                     </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </>
+            ) : null}
+
+            {/* Flights */}
+            {matching == "flights" && matches ? (
+                <>
+                    <thead>
+                        <tr>
+                            <th>Vuelos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {matches.map((flight) => {
+                            return (
+                                <tr
+                                    key={flight}
+                                    onClick={() => setSelectedFlight(flight)}
+                                >
+                                    <td>{flight}</td>
                                 </tr>
                             );
                         })}

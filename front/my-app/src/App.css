@@ -87,6 +87,12 @@ small {
 td.erase {
     color: red;
 }
+button.homeButton {
+    width: 80px;
+    position: absolute;
+    top: 0px;
+    left: 24px;
+}
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);

@@ -30,6 +30,13 @@ router.get("/search/:search", (req, res) => {
         },
     }).then((results) => res.send(results));
 });
+router.get("/flight/:flightId", (req, res) => {
+    Passenger.findAll({
+        where: {
+            flights: { [Op.contains]: [req.params.flightId] },
+        },
+    }).then((passengers) => res.send(passengers));
+});
 
 router.get("/:name", (req, res) => {
     Passenger.findAll({

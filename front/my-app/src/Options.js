@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CargarPasajeros from "./cargar-pasajeros";
-import Pasajeros from "./pasajeros";
+import Vuelos from "./Vuelos";
 import "./App.css";
 
 const Options = () => {
@@ -13,19 +13,17 @@ const Options = () => {
                         className="cargar-pasajero"
                         onClick={() => setPage("cargar-pasajero")}
                     >
-                        Cargar Pasajero
-                    </button>
-                    <button className="vuelos">Vuelos</button>
-                    <button
-                        className="pasajeros"
-                        onClick={() => setPage("pasajeros")}
-                    >
                         Pasajeros
+                    </button>
+                    <button
+                        className="vuelos"
+                        onClick={() => setPage("vuelos")}
+                    >
+                        Vuelos
                     </button>
                 </div>
             ) : null}
-            {page === "cargar-pasajero" ? <CargarPasajeros /> : null}
-            {page === "pasajeros" ? <Pasajeros /> : null}
+            <CargarPasajeros page={page} />
         </>
     );
 };

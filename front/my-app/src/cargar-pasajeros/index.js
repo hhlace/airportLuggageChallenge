@@ -2,16 +2,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import PassengersData from "./PassengersData";
 import PackagesData from "./PackagesData";
-import Matches from "./Matches";
+import Matches from "../Matches";
 import "../App.css";
 
-const CargarPasajeros = () => {
+const CargarPasajeros = ({ page }) => {
     const name = useFormInput("");
     const lastName = useFormInput("");
     const flightNumber = useFormInput("");
     const luggage = useFormInput("grande");
     let [userMatches, setUserMatches] = useState([]);
     let [submitable, setSubmitable] = useState(true);
+    const [flights, setFlights] = useState([]);
+    const [passengers, setPassengers] = useState([]);
     const [selectedPassenger, setSelectedPassenger] = useState({});
     const [selectedFlight, setSelectedFlight] = useState("");
     const [selectedLuggage, setSelectedLuggage] = useState([]);
@@ -45,14 +47,14 @@ const CargarPasajeros = () => {
             axios
                 .get(`/passengers/${name.value}/${lastName.value}`)
                 .then((res) => res.data)
-                .then((passengers) => {
-                    setUserMatches(passengers);
+                .then((passgrs) => {
+                    setUserMatches(passgrs);
                 });
         }
     };
 
-    const setPassenger = (passenger) => {
-        return setSelectedPassenger(passenger);
+    const setPassenger = (passgrs) => {
+        return setSelectedPassenger(passgrs);
     };
 
     const setFlight = (e) => {
@@ -80,8 +82,32 @@ const CargarPasajeros = () => {
         }
     };
 
+    const lookFlights = () => {
+        let flightSet = new Set();
+        axios
+            .get("/packages/flights")
+            .then((res) => res.data)
+            .then((packs) => {
+                packs.forEach((pack) => {
+                    flightSet.add(pack.flightNumber);
+                    let arrToFlight = Array.from(flightSet);
+                    setFlights(arrToFlight);
+                });
+            });
+    };
+
+    const lookPassengers = () => {
+        if (selectedFlight.length > 3) {
+            axios
+                .get(`/passengers/flight/${selectedFlight}`)
+                .then((res) => res.data)
+                .then((passengers) => setPassengers(passengers));
+        }
+    };
+
     const flightLuggage = () => {
-        if (setSelectedFlight) {
+        if (selectedFlight) {
+            console.log("wachh");
             axios
                 .get(`/packages/${selectedPassenger.id}/${selectedFlight}`)
                 .then((res) => res.data)
@@ -100,7 +126,6 @@ const CargarPasajeros = () => {
 
     const submitLuggage = (e) => {
         e.preventDefault();
-        console.log("luggageLength-->", luggage.value.length);
         if (luggage.value.length > 0) {
             axios
                 .post("/packages", {
@@ -130,78 +155,146 @@ const CargarPasajeros = () => {
         ) {
             setSubmitable(false);
         }
-        if (selectedFlight != "") {
+        if (selectedFlight != "" && page === "cargar-pasajeros") {
             flightLuggage();
         }
-    }, [userMatches.length, lastName.value.length, selectedFlight]);
-    console.log("selectedPassenger--->", selectedPassenger);
-    console.log("selectedFlight--->", selectedFlight);
-    console.log("luggage--->", luggage);
-    console.log("flightExist-->", flightExist);
-    console.log("paquetes-->", selectedLuggage);
+        if (flights.length < 1) lookFlights();
+        if (selectedFlight && page === "vuelos") lookPassengers();
+        if (
+            selectedFlight.length > 0 &&
+            Object.keys(selectedPassenger).length > 0
+        )
+            flightLuggage();
+    }, [
+        userMatches.length,
+        lastName.value.length,
+        selectedFlight,
+        selectedPassenger,
+    ]);
+
+    console.log("selectedFlight-->", selectedFlight.length);
+    console.log("selectedPassenger", selectedPassenger);
+    console.log("selectedLuggage--->", selectedLuggage);
     return (
         <>
-            {selectedPassenger.name ? (
+            {page === "cargar-pasajero" ? (
                 <>
-                    <h4>
-                        Pasajero: {selectedPassenger.name}{" "}
-                        {selectedPassenger.lastName}
-                    </h4>
+                    {selectedPassenger.name ? (
+                        <>
+                            <h4>
+                                Pasajero: {selectedPassenger.name}{" "}
+                                {selectedPassenger.lastName}
+                            </h4>
+                            {!selectedFlight ? (
+                                <Matches
+                                    matching="flight"
+                                    matches={selectedPassenger.flights}
+                                    setSelectedFlight={setSelectedFlight}
+                                />
+                            ) : (
+                                <>
+                                    <h4>Vuelo: {selectedFlight}</h4>
+                                    <Matches
+                                        matching="packages"
+                                        matches={selectedLuggage}
+                                        removePackage={removePackage}
+                                    />
+                                </>
+                            )}
+                            <PackagesData
+                                passengerData={selectedPassenger}
+                                flightNumber={flightNumber}
+                                selectedFlight={selectedFlight}
+                                luggage={luggage}
+                                setFlight={setFlight}
+                                submitLuggage={submitLuggage}
+                                checkFlight={checkFlight}
+                                flightExist={flightExist}
+                                selectedLuggage={selectedLuggage}
+                                removeAllLuggage={removeAllLuggage}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <h4>Buscar o agregar pasajero</h4>
+                            {userMatches.length > 0 ? (
+                                <Matches
+                                    matching="passenger"
+                                    matches={userMatches}
+                                    setPassenger={setPassenger}
+                                />
+                            ) : null}
+                            <PassengersData
+                                name={name}
+                                lastName={lastName}
+                                submitable={submitable}
+                                addPassenger={addPassenger}
+                                useFormInput={useFormInput}
+                                handleBlurName={handleBlurName}
+                                handleBlurLastName={handleBlurLastName}
+                            />
+                        </>
+                    )}
+                </>
+            ) : null}
+            {page === "vuelos" ? (
+                <>
                     {!selectedFlight ? (
-                        <Matches
-                            matching="flight"
-                            matches={selectedPassenger.flights}
-                            setSelectedFlight={setSelectedFlight}
-                        />
+                        <>
+                            <h4>Buscar vuelo</h4>
+                            {flights.length > 0 ? (
+                                <Matches
+                                    matching="flights"
+                                    matches={flights}
+                                    setSelectedFlight={setSelectedFlight}
+                                />
+                            ) : null}
+                        </>
                     ) : (
                         <>
                             <h4>Vuelo: {selectedFlight}</h4>
+                            {passengers.length > 0 ? (
+                                <Matches
+                                    matching="passenger"
+                                    matches={passengers}
+                                    setPassenger={setSelectedPassenger}
+                                />
+                            ) : null}
+                        </>
+                    )}
+                    {selectedLuggage.length > 0 ? (
+                        <>
+                            <h4>
+                                Pasajero: {selectedPassenger.name}{" "}
+                                {selectedPassenger.lastName}
+                            </h4>
                             <Matches
                                 matching="packages"
                                 matches={selectedLuggage}
                                 removePackage={removePackage}
                             />
+                            <PackagesData
+                                passengerData={selectedPassenger}
+                                flightNumber={flightNumber}
+                                selectedFlight={selectedFlight}
+                                luggage={luggage}
+                                setFlight={setFlight}
+                                submitLuggage={submitLuggage}
+                                checkFlight={checkFlight}
+                                flightExist={flightExist}
+                                selectedLuggage={selectedLuggage}
+                                removeAllLuggage={removeAllLuggage}
+                            />
                         </>
-                    )}
-                    <PackagesData
-                        passengerData={selectedPassenger}
-                        flightNumber={flightNumber}
-                        selectedFlight={selectedFlight}
-                        luggage={luggage}
-                        setFlight={setFlight}
-                        submitLuggage={submitLuggage}
-                        checkFlight={checkFlight}
-                        flightExist={flightExist}
-                        selectedLuggage={selectedLuggage}
-                        removeAllLuggage={removeAllLuggage}
-                    />
-                </>
-            ) : (
-                <>
-                    {userMatches.length > 0 ? (
-                        <Matches
-                            matching="passenger"
-                            matches={userMatches}
-                            setPassenger={setPassenger}
-                        />
                     ) : null}
-                    <PassengersData
-                        name={name}
-                        lastName={lastName}
-                        submitable={submitable}
-                        addPassenger={addPassenger}
-                        useFormInput={useFormInput}
-                        handleBlurName={handleBlurName}
-                        handleBlurLastName={handleBlurLastName}
-                    />
                 </>
-            )}
+            ) : null}
         </>
     );
 };
 
 const useFormInput = (initialValue) => {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(initialValue);
     let handleChange = (e) => {
         setValue(e.target.value);
     };

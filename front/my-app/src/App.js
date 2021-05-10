@@ -1,12 +1,17 @@
 import "./App.css";
 import Options from "./Options";
-import { Route, Redirect, Switch } from "react-router-dom";
 
 function App() {
     return (
         <div className="App">
             <header className="App-header">
                 <h2 className="App-title">Valijas</h2>
+                <button
+                    onClick={() => window.location.reload()}
+                    className="homeButton"
+                >
+                    Home
+                </button>
                 <Options className="App-header" />
                 <a
                     className="App-link"
