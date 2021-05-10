@@ -19,3 +19,4 @@ $ npm i
 
 para instalar dependencias necesarias.
 
+La aplicacion se abrira sola en su navegador.
