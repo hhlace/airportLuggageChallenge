@@ -6,9 +6,13 @@ Desarrollo challenge para ingreso a Bootcamp 2 Plataforma 5.
 Para poder usar la app, teniendo instalado Node.Js.
 
 En las carpetas:
+
 /front/my-app
+
 &
+
 /back
+
 Correr el comando:
 $ npm i
 para instalar dependencias necesarias.
