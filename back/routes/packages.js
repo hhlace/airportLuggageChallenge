@@ -20,4 +20,9 @@ router.get("/:passengerId/:flightNumber", (req, res) => {
         },
     }).then((packages) => res.send(packages));
 });
+router.delete("/:packageId", (req, res) => {
+    Pacakages.findByPk(req.params.packageId)
+        .then((pack) => pack.destroy())
+        .then((r) => res.sendStatus(200));
+});
 module.exports = router;

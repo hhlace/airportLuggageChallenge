@@ -10,6 +10,7 @@ const PackagesData = ({
     selectedFlight,
     checkFlight,
     flightExist,
+    selectedLuggage,
 }) => {
     return (
         <>
@@ -37,7 +38,7 @@ const PackagesData = ({
                         disabled={flightExist}
                     />
                 </form>
-            ) : (
+            ) : selectedLuggage.length < 3 ? (
                 <form onSubmit={submitLuggage}>
                     <h3>Agregar equipaje</h3>
                     <select {...luggage}>
@@ -47,6 +48,8 @@ const PackagesData = ({
                     </select>
                     <input type="submit" value="Agregar bulto" />
                 </form>
+            ) : (
+                <small>Ya tiene asignadas 3 prendas</small>
             )}
         </>
     );

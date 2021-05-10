@@ -108,11 +108,14 @@ const CargarPasajeros = () => {
                     size: luggage.value,
                     passengerId: selectedPassenger.id,
                 })
-                .then((createdPackage) =>
-                    console.log("paqueteee--->", createdPackage)
-                );
+                .then((createdPackage) => flightLuggage());
         }
     };
+
+    const removePackage = (packageId) => {
+        axios.delete(`/packages/${packageId}`).then((res) => flightLuggage());
+    };
+
     useEffect(() => {
         if (
             name.value.length > 3 &&
@@ -150,6 +153,7 @@ const CargarPasajeros = () => {
                             <Matches
                                 matching="packages"
                                 matches={selectedLuggage}
+                                removePackage={removePackage}
                             />
                         </>
                     )}
@@ -162,6 +166,7 @@ const CargarPasajeros = () => {
                         submitLuggage={submitLuggage}
                         checkFlight={checkFlight}
                         flightExist={flightExist}
+                        selectedLuggage={selectedLuggage}
                     />
                 </>
             ) : (

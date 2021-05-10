@@ -1,7 +1,13 @@
 import react from "react";
 import "../App.css";
 
-const Matches = ({ matches, setPassenger, matching, setSelectedFlight }) => {
+const Matches = ({
+    matches,
+    setPassenger,
+    matching,
+    setSelectedFlight,
+    removePackage,
+}) => {
     return (
         <table>
             {/* Passenger */}
@@ -68,8 +74,11 @@ const Matches = ({ matches, setPassenger, matching, setSelectedFlight }) => {
                                 <tr key={pack.id}>
                                     <td>{pack.id}</td>
                                     <td>{pack.size}</td>
-                                    <td>
-                                        <button className="edit">edit</button>
+                                    <td
+                                        className="erase"
+                                        onClick={() => removePackage(pack.id)}
+                                    >
+                                        X
                                     </td>
                                 </tr>
                             );
