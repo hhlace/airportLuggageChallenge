@@ -14,6 +14,8 @@ En las carpetas:
 /back
 
 Correr el comando:
+
 $ npm i
+
 para instalar dependencias necesarias.
 
