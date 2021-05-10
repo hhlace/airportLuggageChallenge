@@ -116,6 +116,12 @@ const CargarPasajeros = () => {
         axios.delete(`/packages/${packageId}`).then((res) => flightLuggage());
     };
 
+    const removeAllLuggage = () => {
+        axios
+            .delete(`packages/${selectedPassenger.id}/${selectedFlight}`)
+            .then((r) => flightLuggage());
+    };
+
     useEffect(() => {
         if (
             name.value.length > 3 &&
@@ -167,6 +173,7 @@ const CargarPasajeros = () => {
                         checkFlight={checkFlight}
                         flightExist={flightExist}
                         selectedLuggage={selectedLuggage}
+                        removeAllLuggage={removeAllLuggage}
                     />
                 </>
             ) : (

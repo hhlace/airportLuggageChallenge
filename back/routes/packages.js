@@ -25,4 +25,12 @@ router.delete("/:packageId", (req, res) => {
         .then((pack) => pack.destroy())
         .then((r) => res.sendStatus(200));
 });
+router.delete("/:passengerId/:flightNumber", (req, res) => {
+    Pacakages.destroy({
+        where: {
+            passengerId: req.params.passengerId,
+            flightNumber: req.params.flightNumber,
+        },
+    }).then((r) => res.sendStatus(200));
+});
 module.exports = router;

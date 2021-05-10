@@ -11,6 +11,7 @@ const PackagesData = ({
     checkFlight,
     flightExist,
     selectedLuggage,
+    removeAllLuggage,
 }) => {
     return (
         <>
@@ -47,9 +48,13 @@ const PackagesData = ({
                         <option value="prenda">Prenda</option>
                     </select>
                     <input type="submit" value="Agregar bulto" />
+                    <button onClick={removeAllLuggage}>Borrar todos</button>
                 </form>
             ) : (
-                <small>Ya tiene asignadas 3 prendas</small>
+                <>
+                    <small>Ya tiene asignadas 3 prendas</small>
+                    <button onClick={removeAllLuggage}>Borrar todos</button>
+                </>
             )}
         </>
     );
