@@ -1,4 +1,3 @@
-import react from "react";
 import "./App.css";
 
 const Matches = ({
@@ -11,7 +10,7 @@ const Matches = ({
     return (
         <table>
             {/* Passenger */}
-            {matching == "passenger" ? (
+            {matching === "passenger" ? (
                 <>
                     <thead>
                         <tr>
@@ -36,7 +35,7 @@ const Matches = ({
             ) : null}
 
             {/* Flight */}
-            {matching == "flight" && matches ? (
+            {matching === "flight" && matches ? (
                 <>
                     <thead>
                         <tr>
@@ -59,7 +58,7 @@ const Matches = ({
             ) : null}
 
             {/* Packages */}
-            {matching == "packages" ? (
+            {matching === "packages" ? (
                 <>
                     <thead>
                         <tr>
@@ -88,7 +87,7 @@ const Matches = ({
             ) : null}
 
             {/* Flights */}
-            {matching == "flights" && matches ? (
+            {matching === "flights" && matches ? (
                 <>
                     <thead>
                         <tr>

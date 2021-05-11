@@ -155,7 +155,7 @@ const CargarPasajeros = ({ page }) => {
         ) {
             setSubmitable(false);
         }
-        if (selectedFlight != "" && page === "cargar-pasajeros") {
+        if (selectedFlight !== "" && page === "cargar-pasajeros") {
             flightLuggage();
         }
         if (flights.length < 1) lookFlights();
@@ -170,6 +170,9 @@ const CargarPasajeros = ({ page }) => {
         lastName.value.length,
         selectedFlight,
         selectedPassenger,
+        flights.length,
+        name.value.length,
+        page,
     ]);
     return (
         <>

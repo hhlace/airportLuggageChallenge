@@ -1,6 +1,5 @@
 import { useState } from "react";
 import CargarPasajeros from "./cargar-pasajeros";
-import Vuelos from "./Vuelos";
 import "./App.css";
 
 const Options = () => {
