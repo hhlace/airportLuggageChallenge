@@ -63,8 +63,6 @@ input.submit {
     background-color: #1985a1;
 }
 table {
-    position: absolute;
-    top: 100px;
     background-color: #b2b1cf;
     width: 95%;
     border: 1px solid black;
