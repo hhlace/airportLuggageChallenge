@@ -107,7 +107,6 @@ const CargarPasajeros = ({ page }) => {
 
     const flightLuggage = () => {
         if (selectedFlight) {
-            console.log("wachh");
             axios
                 .get(`/packages/${selectedPassenger.id}/${selectedFlight}`)
                 .then((res) => res.data)
@@ -172,10 +171,6 @@ const CargarPasajeros = ({ page }) => {
         selectedFlight,
         selectedPassenger,
     ]);
-
-    console.log("selectedFlight-->", selectedFlight.length);
-    console.log("selectedPassenger", selectedPassenger);
-    console.log("selectedLuggage--->", selectedLuggage);
     return (
         <>
             {page === "cargar-pasajero" ? (
