@@ -45,7 +45,6 @@ const Vuelos = () => {
         if (selectedFlight) lookPassengers();
         if (selectedFlight && selectedPassenger) flightLuggage();
     }, [selectedFlight]);
-    console.log("tam", selectedPassenger);
     return (
         <>
             {!selectedFlight ? (

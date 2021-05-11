@@ -141,7 +141,8 @@ const CargarPasajeros = ({ page }) => {
         axios.delete(`/packages/${packageId}`).then((res) => flightLuggage());
     };
 
-    const removeAllLuggage = () => {
+    const removeAllLuggage = (e) => {
+        e.preventDefault();
         axios
             .delete(`packages/${selectedPassenger.id}/${selectedFlight}`)
             .then((r) => flightLuggage());
